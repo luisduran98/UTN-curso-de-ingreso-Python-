@@ -43,7 +43,62 @@ class App(customtkinter.CTk):
 
 
     def btn_calcular_on_click(self):
-        pass
+        cantidad = int(self.combobox_cantidad.get())
+        marca =  self.combobox_marca.get()
+        precio = 800 * cantidad
+        total = 0
+        descuento = ""
+
+        match cantidad:
+            case 6 | 7 | 8 | 9 | 10 | 11 | 12:
+                total = precio - (precio * 0.5)
+                descuento = "50%"
+
+            case 5:
+                match marca:
+                    case "ArgentinaLuz":
+                        total = precio - (precio * 0.4)
+                        descuento = "40%"
+
+                    case _:
+                        total = precio - (precio * 0.3)
+                        descuento = "30%"
+
+            case 4:
+                match marca:
+                    case "ArgentinaLuz" | "FelipeLamparas":
+                        total = precio - (precio * 0.25)
+                        descuento = "25%"
+
+                    case _:
+                        total = precio - (precio * 0.2)
+                        descuento = "20%"
+
+            case 3:
+                match marca:
+                    case "ArgentinaLuz":
+                        total = precio - (precio * 0.15)
+                        descuento = "15%"
+
+                    case "FelipeLamparas":
+                        total = precio - (precio * 0.10)
+                        descuento = "10%"
+
+                    case _:
+                        total = precio - (precio * 0.05)
+                        descuento = "5%"
+
+            case _:
+                total = precio
+
+        if total > 4000:
+            alert("Total", f"Genial obuviste un descuento de {descuento} mas un 5% y tu total es {total + (total * 0.05)}")
+            
+        elif total > 0 and total <= 1600:
+            alert("Total", f"Gracias por compra, tu total es {total}")
+
+        else:
+            alert("Total", f"Genial obuviste un descuento de {descuento} y tu total es {total}")
         
     
 if __name__ == "__main__":
