@@ -5,8 +5,8 @@ from tkinter.simpledialog import askstring as prompt
 import customtkinter
 
 '''
-nombre:
-apellido:
+nombre: Luis
+apellido: Duran
 ---
 Ejercicio: while_10
 ---
@@ -37,7 +37,47 @@ class App(customtkinter.CTk):
 
 
     def btn_comenzar_ingreso_on_click(self):
-        pass
+        positivos = 0
+        negativos = 0 
+        cantidadPositivos = 0
+        cantidadNegativos = 0
+        cantidadCeros = 0
+        diferencia = 0
+        
+
+        while True:
+            verificador = prompt("Verificador", "Coloca aca los numeros")
+            
+            if verificador == "":
+                alert("Error", "Debes colocar un numero")
+                continue
+
+            if verificador == None:
+                break
+
+            if verificador == "0":
+                cantidadCeros += 1
+
+            if int(verificador):
+                
+                if int(verificador) > 0:
+                    positivos += int(verificador)
+                    cantidadPositivos += 1
+
+                if int(verificador) < 0:
+                    negativos += int(verificador)
+                    cantidadNegativos += 1
+
+        diferencia = cantidadPositivos - cantidadNegativos
+
+        if diferencia < 0:
+            diferencia = diferencia * -1
+
+        if cantidadCeros or positivos or negativos:
+            alert("Verificador", f"Positivos: {cantidadPositivos}, Negativos: {cantidadNegativos}, Suma de positivos: {positivos}, Suma de negativos: {negativos}, Cantidad de Ceros: {cantidadCeros}, Diferencia: {diferencia}")
+
+        else:
+            alert("Error", "Debes colocar numeros")
 
     
 if __name__ == "__main__":

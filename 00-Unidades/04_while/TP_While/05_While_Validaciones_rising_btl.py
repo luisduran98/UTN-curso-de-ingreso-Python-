@@ -5,8 +5,8 @@ from tkinter.simpledialog import askstring as prompt
 import customtkinter
 
 '''
-nombre:
-apellido:
+nombre: Luis
+apellido: Duran
 ---
 TP: While_validaciones_rising_btl
 ---
@@ -55,7 +55,71 @@ class App(customtkinter.CTk):
         self.btn_validar.grid(row=4, pady=20, columnspan=2, sticky="nsew")
 
     def btn_validar_on_click(self):
-        pass
+        apellido = ""
+        edad = ""
+        # estado = ""
+        legajo = ""
+        caso = 0
+        
+        while True:
+
+            if caso == 0:
+                validadorUno = prompt("Censo 2024", "Coloca tu apellido")
+
+                if validadorUno == "":
+                    alert("Error", "Debes colocar tu apellido")
+
+                if validadorUno:
+                    apellido = validadorUno
+                    caso += 1
+
+            if caso == 1:
+                validadorDos = prompt("Censo 2024", "Coloca tu edad")
+
+                if validadorDos == "":
+                    alert("Atencion", "Debes colocar edad")
+                    continue
+
+                if int(validadorDos) >= 18 and int(validadorDos) <= 90:
+                    edad = int(validadorDos)
+                    caso += 1
+
+                else:
+                    alert("Atencion", "Debes ser mayor de 18 años para el censo")
+
+
+            if caso == 2:
+
+                indice = 0
+                verificador = False
+
+                validadorCuatro = prompt("Censo 2024", "Coloca tu legajo")
+
+                if len(validadorCuatro) != 4:
+                    alert("Atencion", "Verifica que el legajo tenga 4 numeros")
+                    continue
+
+                while indice < 4:
+                    if validadorCuatro[indice] == "0":
+                        verificador = True
+                    
+                    indice += 1
+
+                if verificador == True:
+                    alert("Atencion", "Verifica que el legajo no tenga ceros")
+
+
+                else:
+                    legajo = int(validadorCuatro)
+                    break
+            
+        self.txt_apellido.delete(0,20)
+        self.txt_edad.delete(0,20)
+        self.txt_legajo.delete(0,20)
+
+        self.txt_apellido.insert(0,apellido)
+        self.txt_edad.insert(0,edad)
+        self.txt_legajo.insert(0,legajo)
 
 
 if __name__ == "__main__":
