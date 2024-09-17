@@ -19,7 +19,7 @@ from tkinter.messagebox import askyesno as question
 from tkinter.simpledialog import askstring as prompt
 import customtkinter
 
-NOMBRE = "" # Nombre del alumno
+NOMBRE = "LUIS DURAN" # Nombre del alumno 
 
 """
 #Nos encargan el desarrollo de una aplicación que le permita a sus usuarios operar 
@@ -90,8 +90,8 @@ class App(customtkinter.CTk):
     
         #PUEDE MODIFICAR LOS DATOS A SU ANTOJO, A EFECTOS DE REALIZAR PRUEBAS
         self.lista_nombre = ["Pepe", "Paola", "Dardo", "Fatiga", "Maria"]
-        self.lista_monto = [20000,30000,40000,50000,60000]
-        self.lista_tipo_instrumento = ["CEDEAR","BONOS","MEP","CEDEAR","CEDEAR"]
+        self.lista_monto = [120000,30000,80000,50000,60000]
+        self.lista_tipo_instrumento = ["BONOS","CEDEAR","BONOS","BONOS","CEDEAR"]
         self.lista_cantidad_instrumento = [20, 35, 199, 100, 80]
     
     def btn_cargar_datos_on_click(self):
@@ -99,17 +99,51 @@ class App(customtkinter.CTk):
 
 
     def btn_mostrar_informe_1(self):
-        pass
-        
-
+        print("|   |   NOMBRES   |   MONTO   |   INSTRUMENTO   |   CANT. INSTRUMENTO  |")
+        for i in range(0,5):
+            print(f"| {i + 1} |   {self.lista_nombre[i]:<10}|   {self.lista_monto[i]:<8}|     {self.lista_tipo_instrumento[i]:<12}|{self.lista_cantidad_instrumento[i]:^22}|")
 
     def btn_mostrar_informe_2(self):
-        pass
+        i = 0
+        flag = False
+        while i < len(self.lista_tipo_instrumento):
+            if self.lista_tipo_instrumento[i] == "BONOS" or self.lista_tipo_instrumento[i] == "CEDEAR":
+                flag = True
+                break
+            i+=1
+
+        if flag:
+            suma_nombre= ""
+            suma_cantidad_invertida = ""
+            transformador = str(self.lista_monto[i])
+
+            for y in range(1,len(self.lista_nombre[i])+1):
+                suma_nombre += self.lista_nombre[i][-y]
+
+            for x in range(1,len(transformador)+1):
+                suma_cantidad_invertida += transformador[-x]
+
+            print(f"Primer usuario en Comprar {self.lista_tipo_instrumento[i]}")
+            print(f"Nombre Invertido: {suma_nombre}, Cantidad Invertida: {suma_cantidad_invertida}")
+        else: 
+            print("No existe")
+
+#! 5) - Nombre y posicion de la persona que menos BONOS compro
+    def btn_mostrar_informe_3(self):
+        posiciones_bonos = []
+        for i in range(0,len(self.lista_tipo_instrumento)):
+            if self.lista_tipo_instrumento[i] == "BONOS":
+                posiciones_bonos.append(i)
+
+        menor_bonos = self.lista_monto[posiciones_bonos[0]]
+        puesto = posiciones_bonos[0]
+        for y in range(1,len(posiciones_bonos)):
+            if menor_bonos > self.lista_monto[posiciones_bonos[y]]:
+                menor_bonos = self.lista_monto[posiciones_bonos[y]]
+                puesto = posiciones_bonos[y]
+        print(f"Nombre: {self.lista_nombre[puesto]} y posicion: {puesto} de la persona que menos BONOS compro ")
         
 
-
-    def btn_mostrar_informe_3(self):
-        pass      
 
 
     def btn_mostrar_todos_on_click(self):
