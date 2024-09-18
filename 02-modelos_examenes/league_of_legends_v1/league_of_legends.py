@@ -26,7 +26,7 @@ import warnings
 #? Un jugador de League of Legends tiene un fin de semana libre y 
 #? va a jugar partidas hasta que se canse.
 '''
-NOMBRE = '' # Completa tu nombre completo solo en esa variable
+NOMBRE = 'Luis Jose Duran Perozo' # Completa tu nombre completo solo en esa variable
 '''
 #?################ ENUNCIADO #################
 Para ello deberas programar el boton "Cargar Campeones" para poder cargar 10 personajes del juego.
@@ -74,7 +74,7 @@ class App(customtkinter.CTk):
         self.label_title = customtkinter.CTkLabel(master=self, text=f"League of {NOMBRE}", font=("Arial", 20, "bold"))
         self.label_title.grid(row=0, column=0, columnspan=2, padx=20, pady=10)
         
-        self.image = tk.PhotoImage(file='./modelos_examenes/league_of_legends_v1/UTN_LoL_App_v1.png')
+        self.image = tk.PhotoImage(file='./02-modelos_examenes/league_of_legends_v1/UTN_LoL_App_v1.png')
         self.top_banner = customtkinter.CTkLabel(master = self, image = self.image, text = '')
         self.top_banner.grid_configure(row = 1, column = 0, padx = 20, pady = 5, columnspan = 2, rowspan = 1, sticky = 'we')
 
@@ -112,19 +112,40 @@ class App(customtkinter.CTk):
             "Clasificatoria", "ARAM", "Clasificatoria", "Normal", "Clasificatoria",
         ]
 
-
     def btn_cargar_campeones_on_click(self):
-        pass
+        print("|                                       Registro de Partidas                                        |")
+        print(f"|   Modo de Juego   |      Nombre       |     Asesinatos    |      Muertes      |     Asistencias   |")
+        for i in range(0, len(self.lista_nombre_campeones)):
+            print(f"|{self.lista_modo_de_juego[i]:19}|{self.lista_nombre_campeones[i]:19}|{self.lista_asesinatos_a_favor[i]:19}|{self.lista_muertes_en_contra[i]:19}|{self.lista_asistencias_a_favor[i]:19}|")
         
 
     def btn_mostrar_informe_1_on_click(self):
-        pass
-
+        print()
+        print("|          CAMPEONES            |")
+        print(f"|  posicion  |      Nombre      |")
+        for i in range(0, len(self.lista_nombre_campeones)):
+            print(f"|     {i}      |{self.lista_nombre_campeones[i]:^18}|")
     
     def btn_mostrar_informe_2_on_click(self):
-        pass
+        posicion_clasificatoria = []
+        posicion_aram = []
+        promedio_asesinatos = 0
+        promedio_asistencias = 0
+        for i in range(0,len(self.lista_modo_de_juego)):
+            if self.lista_modo_de_juego[i] == "Clasificatoria":
+                posicion_clasificatoria.append(i)
+            if self.lista_modo_de_juego[i] == "ARAM":
+                posicion_aram.append(i)
+        
+        for y in range(0,len(posicion_clasificatoria)):
+            promedio_asesinatos += self.lista_asesinatos_a_favor[posicion_clasificatoria[y]]
 
-    
+        for x in range(0,len(posicion_aram)):
+            promedio_asistencias += self.lista_asistencias_a_favor[posicion_aram[x]]
+
+        print(f"Promedio asesinatos en clasificatoria: {promedio_asesinatos/len(posicion_clasificatoria)}")
+        print(f"Promedio asesistencias en ARAM: {promedio_asistencias/len(posicion_aram)}")
+
     def btn_mostrar_todos_informes_on_click(self):
         self.btn_mostrar_informe_1_on_click()
         self.btn_mostrar_informe_2_on_click()
